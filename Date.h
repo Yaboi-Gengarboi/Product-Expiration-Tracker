@@ -1,7 +1,7 @@
 // ProductExpirationTracker
 // Date.h
 // Created on Feb 03 2026 by Justyn Durnford
-// Last modified on Feb 13 2026 by Justyn Durnford
+// Last modified on Feb 26 2026 by Justyn Durnford
 // Header file for the Date class
 
 #pragma once
@@ -102,7 +102,7 @@ class Date
     Date lastDate() const noexcept;
 
     // 
-    int distanceFrom(const Date& other) const noexcept;
+    std::int32_t distanceFrom(const Date& other) const noexcept;
 
     // 
     Date& addDays(std::uint16_t days) noexcept;

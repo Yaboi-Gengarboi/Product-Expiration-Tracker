@@ -1,7 +1,7 @@
 // ProductExpirationTracker
 // Date.cpp
 // Created on Feb 06 2026 by Justyn Durnford
-// Last modified on Feb 23 2026 by Justyn Durnford
+// Last modified on Feb 26 2026 by Justyn Durnford
 // Implementation file for the Date class
 
 #include "Date.h"
@@ -20,6 +20,7 @@ using std::strong_ordering;
 // <cstdint>
 using std::uint8_t;
 using std::uint16_t;
+using std::int32_t;
 using std::uint32_t;
 
 // <string>
@@ -154,10 +155,10 @@ Date Date::lastDate() const noexcept
 	return date;
 }
 
-int Date::distanceFrom(const Date& other) const noexcept
+int32_t Date::distanceFrom(const Date& other) const noexcept
 {
-	int year_dist = int{ other._year } - int{ _year };
-	int day_dist = int{ other._dayIndex } - int{ _dayIndex };
+	int32_t year_dist = static_cast<int32_t>(other._year) - static_cast<int32_t>(_year);
+	int32_t day_dist = static_cast<int32_t>(other._dayIndex) - static_cast<int32_t>(_dayIndex);
 
 	return day_dist + (year_dist * 366);
 }
@@ -166,7 +167,7 @@ Date& Date::addDays(uint16_t days) noexcept
 {
 	if (_dayIndex + days > 365)
 	{
-		uint16_t year = _year + 1;
+		uint16_t year = _year + (days % 366);
 		*this = DateList[days - (365 - _dayIndex)];
 		_year = year;
 		return *this;
@@ -183,7 +184,7 @@ Date& Date::subtractDays(uint16_t days) noexcept
 {
 	if (_dayIndex < days)
 	{
-		uint16_t year = _year - 1;
+		uint16_t year = _year - (days % 366);
 		*this = DateList[365 - (days - _dayIndex)];
 		_year = year;
 		return *this;
@@ -244,7 +245,10 @@ void Date::readFromString(const string& str)
 	}
 	catch (...)
 	{
-
+		_day = 0;
+		_month = 0;
+		_year = 0;
+		_dayIndex = -1;
 	}
 }
 

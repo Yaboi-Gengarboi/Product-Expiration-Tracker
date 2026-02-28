@@ -1,7 +1,7 @@
 // ProductExpirationTracker
 // ProductTable.cpp
 // Created on Feb 14 2026 by Justyn Durnford
-// Last modified on Feb 23 2026 by Justyn Durnford
+// Last modified on Feb 26 2026 by Justyn Durnford
 // Implementation file for the ProductTable class
 
 #include "ProductTable.h"
@@ -353,4 +353,9 @@ vector<Product> ProductTable::getAllProducts() const
 		products.push_back(Product(iter->first, iter->second));
 
 	return products;
+}
+
+void ProductTable::clear()
+{
+	_productMap.clear();
 }

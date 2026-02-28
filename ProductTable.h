@@ -1,7 +1,7 @@
 // ProductExpirationTracker
 // ProductTable.h
 // Created on Feb 14 2026 by Justyn Durnford
-// Last modified on Feb 23 2026 by Justyn Durnford
+// Last modified on Feb 26 2026 by Justyn Durnford
 // Header file for the ProductTable class
 
 #pragma once
@@ -136,4 +136,7 @@ class ProductTable
 
 	// 
 	std::vector<Product> getAllProducts() const;
+
+	// 
+	void clear();
 };

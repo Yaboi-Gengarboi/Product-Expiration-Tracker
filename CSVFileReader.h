@@ -1,7 +1,7 @@
 // ProductExpirationTracker
 // CSVFileReader.h
 // Created on Feb 10 2026 by Justyn Durnford
-// Last modified on Feb 13 2026 by Justyn Durnford
+// Last modified on Feb 25 2026 by Justyn Durnford
 // Header file for the CSVFileReader class
 
 #pragma once
@@ -27,6 +27,10 @@ class CSVFileReader
     // 
     constexpr bool isGood() const noexcept
     { return _isGood; }
+
+    // 
+    constexpr bool isEOF() const noexcept
+    { return _fin.eofbit; }
 
     // 
     bool openFile(const std::filesystem::path& filepath);

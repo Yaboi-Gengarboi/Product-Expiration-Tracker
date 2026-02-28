@@ -1,7 +1,7 @@
 // ProductExpirationTracker
 // main.cpp
 // Created on Feb 03 2026 by Justyn Durnford
-// Last modified on Feb 25 2026 by Justyn Durnford
+// Last modified on Feb 26 2026 by Justyn Durnford
 
 #include "CSVFileReader.h"
 #include "CSVFileWriter.h"
@@ -130,14 +130,20 @@ int main()
     {
         line = in_file.getValuesInLine();
 
-        if (in_file.isGood())
+        if (in_file.isGood() || in_file.isEOF())
             table.addProductData(Product(line));
     }
 
     vector<Product> products(table.getAllProducts());
+    table.clear();
 
     for (Product& product : products)
     {
+        size_t pos = product.getName().find('*');
+
+        if (pos != static_cast<size_t>(-1))
+            product.setName(product.getName().substr(0, product.getName().size() - 1));
+
         const vector<Date>& killDates(product.getKillDates());
 
         for (const Date& date : killDates)
@@ -154,6 +160,8 @@ int main()
 
     for (const Product& product : products)
         out_file.writeValues(product.toCSVLine());
+
+    products.clear();
 
     cout << '\n';
     cout << "output.csv file updated.\n";
